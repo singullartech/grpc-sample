@@ -1,0 +1,37 @@
+version: "3.8"
+services:
+  nats-server:
+    container_name: grpc-nats
+    image: nats:latest
+    restart: always
+    ports:
+      - 4222:4222
+      - 6222:6222
+      - 8222:8222
+    networks:
+      - telescope
+
+  mongo-server:
+    image: mongo:5.0.6
+    container_name: grpc-mongo
+    restart: unless-stopped
+    # command: mongod --auth
+    environment:
+      # MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
+      # MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASS}
+      MONGO_INITDB_DATABASE: inventory_db
+      MONGODB_DATA_DIR: /data/db
+      MONDODB_LOG_DIR: /dev/null
+    ports:
+    - 27017:27017
+    volumes:
+      - mongodata:/data/db
+    networks:
+      - telescope
+
+volumes:
+  mongodata:
+
+networks:
+  telescope:
+    name: telescope

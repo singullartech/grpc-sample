@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package message;
+option go_package="./pkg/pb";
+
+message Message {
+  string body = 1;
+}
+
+message MessageRequest {
+  Message message = 1;
+}
+
+message MessageResponse {
+  bool success = 1;
+  int32 total = 2;
+}
+
+service MessageService {
+  rpc Send(stream MessageRequest) returns (MessageResponse) {};
+}

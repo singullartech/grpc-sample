@@ -1,0 +1,231 @@
+version: '3'
+
+services:
+  nats-server:
+    container_name: nats-server
+    image: nats:latest
+    restart: unless-stopped
+    networks:
+      - sample
+
+  mongo-server:
+    image: mongo:5.0.6
+    container_name: mongo-server
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_DATABASE: disdb
+      MONGODB_DATA_DIR: /data/db
+      MONDODB_LOG_DIR: /dev/null
+    volumes:
+      - mongo:/data/db
+    networks:
+      - sample
+  
+  grpc-server-1:
+    build:
+      context: ./grpc-server
+    container_name: grpc-server-01
+    networks:
+      - sample
+    depends_on:
+      - nats-server
+    working_dir: /app
+  
+  grpc-server-2:
+    build:
+      context: ./grpc-server
+    container_name: grpc-server-02
+    networks:
+      - sample
+    depends_on:
+      - nats-server
+    working_dir: /app
+
+  grpc-server-3:
+    build:
+      context: ./grpc-server
+    container_name: grpc-server-03
+    networks:
+      - sample
+    depends_on:
+      - nats-server
+    working_dir: /app
+
+  grpc-server-4:
+    build:
+      context: ./grpc-server
+    container_name: grpc-server-04
+    networks:
+      - sample
+    depends_on:
+      - nats-server
+    working_dir: /app
+  
+  grpc-server-5:
+    build:
+      context: ./grpc-server
+    container_name: grpc-server-05
+    networks:
+      - sample
+    depends_on:
+      - nats-server
+    working_dir: /app
+  
+  grpc-server-6:
+    build:
+      context: ./grpc-server
+    container_name: grpc-server-06
+    networks:
+      - sample
+    depends_on:
+      - nats-server
+    working_dir: /app
+  
+  grpc-server-7:
+    build:
+      context: ./grpc-server
+    container_name: grpc-server-07
+    networks:
+      - sample
+    depends_on:
+      - nats-server
+    working_dir: /app
+  
+  grpc-server-8:
+    build:
+      context: ./grpc-server
+    container_name: grpc-server-08
+    networks:
+      - sample
+    depends_on:
+      - nats-server
+    working_dir: /app
+  
+  grpc-server-9:
+    build:
+      context: ./grpc-server
+    container_name: grpc-server-09
+    networks:
+      - sample
+    depends_on:
+      - nats-server
+    working_dir: /app
+  
+  grpc-server-10:
+    build:
+      context: ./grpc-server
+    container_name: grpc-server-10
+    networks:
+      - sample
+    depends_on:
+      - nats-server
+    working_dir: /app
+  
+  worker-01:
+    build:
+      context: ./workers
+    container_name: workers-01
+    networks:
+      - sample
+    depends_on:
+      - nats-server
+      - mongo-server
+  
+  worker-02:
+    build:
+      context: ./workers
+    container_name: workers-02
+    networks:
+      - sample
+    depends_on:
+      - nats-server
+      - mongo-server
+
+  worker-03:
+    build:
+      context: ./workers
+    container_name: workers-03
+    networks:
+      - sample
+    depends_on:
+      - nats-server
+      - mongo-server
+  
+  worker-04:
+    build:
+      context: ./workers
+    container_name: workers-04
+    networks:
+      - sample
+    depends_on:
+      - nats-server
+      - mongo-server
+
+  worker-05:
+    build:
+      context: ./workers
+    container_name: workers-05
+    networks:
+      - sample
+    depends_on:
+      - nats-server
+      - mongo-server
+
+  worker-06:
+    build:
+      context: ./workers
+    container_name: workers-06
+    networks:
+      - sample
+    depends_on:
+      - nats-server
+      - mongo-server
+
+  worker-07:
+    build:
+      context: ./workers
+    container_name: workers-07
+    networks:
+      - sample
+    depends_on:
+      - nats-server
+      - mongo-server
+
+  worker-08:
+    build:
+      context: ./workers
+    container_name: workers-08
+    networks:
+      - sample
+    depends_on:
+      - nats-server
+      - mongo-server
+
+  worker-09:
+    build:
+      context: ./workers
+    container_name: workers-09
+    networks:
+      - sample
+    depends_on:
+      - nats-server
+      - mongo-server
+
+  worker-10:
+    build:
+      context: ./workers
+    container_name: workers-10
+    networks:
+      - sample
+    depends_on:
+      - nats-server
+      - mongo-server
+
+volumes:
+  mongo:
+  
+networks:
+  sample:
+    name: 
+      sample
+    
